@@ -5,19 +5,42 @@
 </head>
 <body>
     <h1>Question API</h1>
-    <div id="question-list"></div>
+    <div id="random-question"></div>
+    <button id="get-random-question">Get Random Question</button>
     <script>
-        fetch('questions.json')
-            .then(response => response.json())
-            .then(data => {
-                const questionList = document.getElementById('question-list');
-                data.questions.forEach(question => {
-                    const p = document.createElement('p');
-                    p.textContent = question;
-                    questionList.appendChild(p);
-                });
-            })
-            .catch(error => console.error(error));
+        let questionsData;
+
+        // Function to fetch the questions data and choose a random question
+        async function fetchQuestions() {
+            try {
+                const response = await fetch('questions.json');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch questions data');
+                }
+                questionsData = await response.json();
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        // Function to display a random question
+        function displayRandomQuestion() {
+            if (questionsData && questionsData.questions.length > 0) {
+                const randomIndex = Math.floor(Math.random() * questionsData.questions.length);
+                const randomQuestion = questionsData.questions[randomIndex];
+                const randomQuestionContainer = document.getElementById('random-question');
+                randomQuestionContainer.textContent = randomQuestion;
+            } else {
+                console.error('No questions data available');
+            }
+        }
+
+        // Fetch the questions data when the page loads
+        fetchQuestions();
+
+        // Add a click event listener to the "Get Random Question" button
+        const getRandomQuestionButton = document.getElementById('get-random-question');
+        getRandomQuestionButton.addEventListener('click', displayRandomQuestion);
     </script>
 </body>
 </html>
