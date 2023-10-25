@@ -6,7 +6,6 @@
 <body>
     <h1>Question API</h1>
     <div id="random-question"></div>
-    <button id="get-random-question">Get Random Question</button>
     <script>
         let questionsData;
 
@@ -18,6 +17,8 @@
                     throw new Error('Failed to fetch questions data');
                 }
                 questionsData = await response.json();
+                // Display a random question when data is loaded
+                displayRandomQuestion();
             } catch (error) {
                 console.error(error);
             }
@@ -37,10 +38,6 @@
 
         // Fetch the questions data when the page loads
         fetchQuestions();
-
-        // Add a click event listener to the "Get Random Question" button
-        const getRandomQuestionButton = document.getElementById('get-random-question');
-        getRandomQuestionButton.addEventListener('click', displayRandomQuestion);
     </script>
 </body>
 </html>
