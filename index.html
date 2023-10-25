@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Question API</title>
+</head>
+<body>
+    <h1>Question API</h1>
+    <div id="question-list"></div>
+    <script>
+        fetch('questions.json')
+            .then(response => response.json())
+            .then(data => {
+                const questionList = document.getElementById('question-list');
+                data.questions.forEach(question => {
+                    const p = document.createElement('p');
+                    p.textContent = question;
+                    questionList.appendChild(p);
+                });
+            })
+            .catch(error => console.error(error));
+    </script>
+</body>
+</html>
