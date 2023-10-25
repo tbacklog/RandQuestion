@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Question API</title>
+    <title>Question</title>
 </head>
 <body>
     <script>
@@ -14,7 +14,7 @@
                 if (!response.ok) {
                     throw new Error('Failed to fetch questions data');
                 }
-                questionsData = await response.json();
+                questionsData = await response.text(); // Set the response type to "text"
                 // Display a random question when data is loaded
                 displayRandomQuestion();
             } catch (error) {
@@ -24,9 +24,10 @@
 
         // Function to display a random question
         function displayRandomQuestion() {
-            if (questionsData && questionsData.questions.length > 0) {
-                const randomIndex = Math.floor(Math.random() * questionsData.questions.length);
-                const randomQuestion = questionsData.questions[randomIndex];
+            if (questionsData) {
+                const questions = questionsData.split('\n'); // Assuming each question is on a new line
+                const randomIndex = Math.floor(Math.random() * questions.length);
+                const randomQuestion = questions[randomIndex];
                 document.body.textContent = randomQuestion;
             } else {
                 console.error('No questions data available');
