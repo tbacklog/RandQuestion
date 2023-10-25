@@ -27,8 +27,7 @@
             if (questionsData && questionsData.questions.length > 0) {
                 const randomIndex = Math.floor(Math.random() * questionsData.questions.length);
                 const randomQuestion = questionsData.questions[randomIndex];
-                const randomQuestionContainer = document.getElementById('random-question');
-                randomQuestionContainer.textContent = randomQuestion;
+                document.body.textContent = randomQuestion;
             } else {
                 console.error('No questions data available');
             }
